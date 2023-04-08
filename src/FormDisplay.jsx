@@ -116,6 +116,17 @@ const FormDisplay = ({ questions }) => {
           <input type="date" />
         </div>
       );
+    } else if (question.type === 'ranking') {
+      return (
+        <div>
+          {question.options.map((option, index) => (
+            <div key={index}>
+              <label>{option}:</label>
+              <input type="number" min="1" max={question.options.length} name={question.id} />
+            </div>
+          ))}
+        </div>
+      );
     }
   };
 

@@ -22,12 +22,22 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
   // Dropdown Type
   const [dropDownOptions, setDropDownOptions] = useState(question.dropDownOptions || []);
 
+  // Ranking question
+  const [rankingOptions, setRankingOptions] = useState(question.rankingOptions || []);
+
+
   const handleUpdate = () => {
-    updateQuestion(question.id, { ...question, question: questionText, statements, scale, minValue, maxValue, stepValue, imageOptions, dropDownOptions  });
+    updateQuestion(question.id, { ...question, question: questionText, statements, scale, minValue, maxValue, stepValue, imageOptions, dropDownOptions, rankingOptions  });
   };
 
   const handleDelete = () => {
     deleteQuestion(question.id);
+  };
+
+  const handleRankingOptionChange = (index, event) => {
+    const newOptions = [...rankingOptions];
+    newOptions[index] = event.target.value;
+    setOptions(newOptions);
   };
 
   const handleOptionChange = (index, event) => {
@@ -144,13 +154,23 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
         </div>
       )}
 
-    {question.type === 'dropdown' && (
+     {question.type === 'dropdown' && (
         <div>
           <h4>Options</h4>
           {dropDownOptions.map((option, index) => (
             <input key={index} type="text" value={option} onChange={(e) => handleDropDownOptionChange(index, e)} />
           ))}
           <button onClick={() => setDropDownOptions([...dropDownOptions, ''])}>Add Option</button>
+        </div>
+      )}
+
+    {question.type === 'ranking' && (
+        <div>
+          <h4>Options</h4>
+          {rankingOptions.map((option, index) => (
+            <input key={index} type="text" value={option} onChange={(e) => handleRankingOptionChange(index, e)} />
+          ))}
+          <button onClick={() => setRankingOptions([...rankingOptions, ''])}>Add Option</button>
         </div>
       )}
 

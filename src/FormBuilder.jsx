@@ -31,6 +31,10 @@ const FormBuilder = () => {
       newQuestion.dropDownOptions = [];
     }
 
+    if (type === 'ranking') {
+      newQuestion.rankingOptions = [];
+    }
+
     setQuestions([...questions, newQuestion]);
   };
 
@@ -62,7 +66,8 @@ const FormBuilder = () => {
       <button onClick={() => addQuestion('imageChoice')}>Add Image Choice Question</button>
       <button onClick={() => addQuestion('dropdown')}>Add Drop-down Choice Question</button>
       <button onClick={() => addQuestion('datePicker')}>Add Date Picker Question</button>
-      
+      <button onClick={() => addQuestion('ranking')}>Add Ranking Question</button>
+
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />
       ))}
