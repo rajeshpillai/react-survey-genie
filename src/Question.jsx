@@ -19,9 +19,11 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
   // Image Choice question type
   const [imageOptions, setImageOptions] = useState(question.imageOptions || []);
 
+  // Dropdown Type
+  const [dropDownOptions, setDropDownOptions] = useState(question.dropDownOptions || []);
 
   const handleUpdate = () => {
-    updateQuestion(question.id, { ...question, question: questionText, statements, scale, minValue, maxValue, stepValue, imageOptions  });
+    updateQuestion(question.id, { ...question, question: questionText, statements, scale, minValue, maxValue, stepValue, imageOptions, dropDownOptions  });
   };
 
   const handleDelete = () => {
@@ -32,6 +34,12 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
     const newOptions = [...question.options];
     newOptions[index] = event.target.value;
     updateQuestion(question.id, { ...question, options: newOptions });
+  };
+
+  const handleDropDownOptionChange = (index, event) => {
+    const newOptions = [...dropDownOptions];
+    newOptions[index] = event.target.value;
+    setDropDownOptions(newOptions);
   };
 
   const handleRowChange = (index, event) => {
@@ -133,6 +141,16 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
             <input key={index} type="text" value={imageOption} onChange={(e) => handleImageOptionChange(index, e)} />
           ))}
           <button onClick={() => setImageOptions([...imageOptions, ''])}>Add Image Option</button>
+        </div>
+      )}
+
+    {question.type === 'dropdown' && (
+        <div>
+          <h4>Options</h4>
+          {dropDownOptions.map((option, index) => (
+            <input key={index} type="text" value={option} onChange={(e) => handleDropDownOptionChange(index, e)} />
+          ))}
+          <button onClick={() => setDropDownOptions([...dropDownOptions, ''])}>Add Option</button>
         </div>
       )}
 

@@ -99,6 +99,17 @@ const FormDisplay = ({ questions }) => {
           ))}
         </div>
       );
+    }  else if (question.type === 'dropdown') {
+      return (
+        <div>
+          <select>
+            <option value="" disabled >Select an option</option>
+            {question.dropDownOptions.map((option, index) => (
+              <option key={index} value={index}>{option}</option>
+            ))}
+          </select>
+        </div>
+      );
     }
   };
 

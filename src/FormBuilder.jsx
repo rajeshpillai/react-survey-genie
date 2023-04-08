@@ -27,6 +27,10 @@ const FormBuilder = () => {
       newQuestion.imageOptions = [];
     }
 
+    if (type === 'dropdown') {
+      newQuestion.dropDownOptions = [];
+    }
+
     setQuestions([...questions, newQuestion]);
   };
 
@@ -56,6 +60,7 @@ const FormBuilder = () => {
       <button onClick={() => addQuestion('likert')}>Add Likert Scale Question</button>
       <button onClick={() => addQuestion('slider')}>Add Slider Question</button>
       <button onClick={() => addQuestion('imageChoice')}>Add Image Choice Question</button>
+      <button onClick={() => addQuestion('dropdown')}>Add Drop-down Choice Question</button>
 
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />
