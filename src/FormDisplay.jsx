@@ -127,6 +127,12 @@ const FormDisplay = ({ questions }) => {
           ))}
         </div>
       );
+    } else if (question.type === 'fileUpload') {
+      return (
+        <div>
+          <input type="file" />
+        </div>
+      );
     }
   };
 

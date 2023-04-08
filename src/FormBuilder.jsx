@@ -67,7 +67,8 @@ const FormBuilder = () => {
       <button onClick={() => addQuestion('dropdown')}>Add Drop-down Choice Question</button>
       <button onClick={() => addQuestion('datePicker')}>Add Date Picker Question</button>
       <button onClick={() => addQuestion('ranking')}>Add Ranking Question</button>
-
+      <button onClick={() => addQuestion('fileUpload')}>Add File Upload Question</button>
+      
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />
       ))}
