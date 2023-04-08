@@ -4,10 +4,15 @@ import FormDisplay from './FormDisplay';
 
 const FormBuilder = () => {
   const [questions, setQuestions] = useState([]);
-  const [displayForm, setDisplayForm] = useState(false);
 
-  const addQuestion = () => {
-    setQuestions([...questions, { id: Date.now(), type: 'text', question: '' }]);
+  const addQuestion = (type) => {
+    const newQuestion = {
+      id: Date.now(),
+      type: type,
+      question: '',
+      options: type === 'multipleChoice' ? ['Option 1', 'Option 2'] : [1, 2, 3, 4, 5],
+    };
+    setQuestions([...questions, newQuestion]);
   };
 
   const updateQuestion = (id, updatedQuestion) => {
@@ -26,19 +31,16 @@ const FormBuilder = () => {
     setQuestions(updatedQuestions);
   };
 
-  const toggleFormDisplay = () => {
-    setDisplayForm(!displayForm);
-  };
-
   return (
     <div>
       <h1>Form Builder</h1>
-      <button onClick={addQuestion}>Add Question</button>
-      <button onClick={toggleFormDisplay}>Preview Form</button>
+      <button onClick={() => addQuestion('text')}>Add Text Question</button>
+      <button onClick={() => addQuestion('multipleChoice')}>Add Multiple Choice Question</button>
+      <button onClick={() => addQuestion('ratingScale')}>Add Rating Scale Question</button>
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />
       ))}
-      {displayForm && <FormDisplay questions={questions} />}
+      <FormDisplay questions={questions} />
     </div>
   );
 };
