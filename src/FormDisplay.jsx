@@ -88,6 +88,17 @@ const FormDisplay = ({ questions }) => {
           />
         </div>
       );
+    } else if (question.type === 'imageChoice') {
+      return (
+        <div>
+          {question.imageOptions.map((imageOption, index) => (
+            <label key={index}>
+              <input type="radio" name={question.id} value={index} />
+              <img src={imageOption} alt={`Option ${index + 1}`} style={{ width: '100px', height: '100px' }} />
+            </label>
+          ))}
+        </div>
+      );
     }
   };
 

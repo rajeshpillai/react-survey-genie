@@ -16,8 +16,12 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
   const [maxValue, setMaxValue] = useState(question.maxValue || 100);
   const [stepValue, setStepValue] = useState(question.stepValue || 1);
 
+  // Image Choice question type
+  const [imageOptions, setImageOptions] = useState(question.imageOptions || []);
+
+
   const handleUpdate = () => {
-    updateQuestion(question.id, { ...question, question: questionText, statements, scale, minValue, maxValue, stepValue });
+    updateQuestion(question.id, { ...question, question: questionText, statements, scale, minValue, maxValue, stepValue, imageOptions  });
   };
 
   const handleDelete = () => {
@@ -52,6 +56,12 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
     const newScale = [...scale];
     newScale[index] = event.target.value;
     setScale(newScale);
+  };
+
+  const handleImageOptionChange = (index, event) => {
+    const newImageOptions = [...imageOptions];
+    newImageOptions[index] = event.target.value;
+    setImageOptions(newImageOptions);
   };
 
   return (
@@ -113,6 +123,16 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
           <label>Min Value: <input type="number" value={minValue} onChange={(e) => setMinValue(e.target.value)} /></label>
           <label>Max Value: <input type="number" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} /></label>
           <label>Step Value: <input type="number" value={stepValue} onChange={(e) => setStepValue(e.target.value)} /></label>
+        </div>
+      )}
+
+      {question.type === 'imageChoice' && (
+        <div>
+          <h4>Image URLs</h4>
+          {imageOptions.map((imageOption, index) => (
+            <input key={index} type="text" value={imageOption} onChange={(e) => handleImageOptionChange(index, e)} />
+          ))}
+          <button onClick={() => setImageOptions([...imageOptions, ''])}>Add Image Option</button>
         </div>
       )}
 

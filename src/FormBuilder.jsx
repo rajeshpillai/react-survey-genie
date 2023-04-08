@@ -23,6 +23,10 @@ const FormBuilder = () => {
       newQuestion.scale = [];
     }
 
+    if (type === 'imageChoice') {
+      newQuestion.imageOptions = [];
+    }
+
     setQuestions([...questions, newQuestion]);
   };
 
@@ -51,6 +55,7 @@ const FormBuilder = () => {
       <button onClick={() => addQuestion('matrix')}>Add Matrix Question</button>
       <button onClick={() => addQuestion('likert')}>Add Likert Scale Question</button>
       <button onClick={() => addQuestion('slider')}>Add Slider Question</button>
+      <button onClick={() => addQuestion('imageChoice')}>Add Image Choice Question</button>
 
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />
