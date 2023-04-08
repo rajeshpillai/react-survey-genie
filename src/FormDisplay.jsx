@@ -51,6 +51,31 @@ const FormDisplay = ({ questions }) => {
           </tbody>
         </table>
       );
+    } else if (question.type === 'likert') {
+      return (
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              {question.scale.map((option, optionIndex) => (
+                <th key={optionIndex}>{option}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {question.statements.map((statement, statementIndex) => (
+              <tr key={statementIndex}>
+                <td>{statement}</td>
+                {question.scale.map((option, optionIndex) => (
+                  <td key={optionIndex}>
+                    <input type="radio" name={`${question.id}-${statementIndex}`} value={optionIndex} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
     }
   };
 

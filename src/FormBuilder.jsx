@@ -18,6 +18,11 @@ const FormBuilder = () => {
       newQuestion.columns = [];
     }
 
+    if (type === 'likert') {
+      newQuestion.statements = [];
+      newQuestion.scale = [];
+    }
+    
     setQuestions([...questions, newQuestion]);
   };
 
@@ -44,6 +49,8 @@ const FormBuilder = () => {
       <button onClick={() => addQuestion('multipleChoice')}>Add Multiple Choice Question</button>
       <button onClick={() => addQuestion('ratingScale')}>Add Rating Scale Question</button>
       <button onClick={() => addQuestion('matrix')}>Add Matrix Question</button>
+      <button onClick={() => addQuestion('likert')}>Add Likert Scale Question</button>
+
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />
       ))}

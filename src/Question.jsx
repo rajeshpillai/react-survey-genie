@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 
 const Question = ({ question, updateQuestion, deleteQuestion }) => {
   const [questionText, setQuestionText] = useState(question.question);
+
+  // Multiple Choice question type
   const [rows, setRows] = useState(question.rows || []);
   const [columns, setColumns] = useState(question.columns || []);
 
+  // Likert Scale question type
+  const [statements, setStatements] = useState(question.statements || []);
+  const [scale, setScale] = useState(question.scale || []);
+
+
   const handleUpdate = () => {
-    updateQuestion(question.id, { ...question, question: questionText, rows, columns });
+    updateQuestion(question.id, { ...question, question: questionText, statements, scale });
   };
+
 
   const handleDelete = () => {
     deleteQuestion(question.id);
@@ -29,6 +37,18 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
     const newColumns = [...columns];
     newColumns[index] = event.target.value;
     setColumns(newColumns);
+  };
+
+  const handleStatementChange = (index, event) => {
+    const newStatements = [...statements];
+    newStatements[index] = event.target.value;
+    setStatements(newStatements);
+  };
+
+  const handleScaleChange = (index, event) => {
+    const newScale = [...scale];
+    newScale[index] = event.target.value;
+    setScale(newScale);
   };
 
   return (
@@ -66,8 +86,28 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
         </div>
       )}
 
+      {question.type === 'likert' && (
+        <div>
+          <div>
+            <h4>Statements</h4>
+            {statements.map((statement, index) => (
+              <input key={index} type="text" value={statement} onChange={(e) => handleStatementChange(index, e)} />
+            ))}
+            <button onClick={() => setStatements([...statements, ''])}>Add Statement</button>
+          </div>
+          <div>
+            <h4>Scale</h4>
+            {scale.map((option, index) => (
+              <input key={index} type="text" value={option} onChange={(e) => handleScaleChange(index, e)} />
+            ))}
+            <button onClick={() => setScale([...scale, ''])}>Add Scale Option</button>
+          </div>
+        </div>
+      )}
+
     </div>
-  );
+   );
+   
 };
 
 export default Question;
