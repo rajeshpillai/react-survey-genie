@@ -26,6 +26,31 @@ const FormDisplay = ({ questions }) => {
           ))}
         </div>
       );
+    } else if (question.type === 'matrix') {
+      return (
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              {question.columns.map((column, columnIndex) => (
+                <th key={columnIndex}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {question.rows.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                <td>{row}</td>
+                {question.columns.map((column, columnIndex) => (
+                  <td key={columnIndex}>
+                    <input type="radio" name={`${question.id}-${rowIndex}`} value={columnIndex} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
     }
   };
 

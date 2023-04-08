@@ -12,6 +12,12 @@ const FormBuilder = () => {
       question: '',
       options: type === 'multipleChoice' ? ['Option 1', 'Option 2'] : [1, 2, 3, 4, 5],
     };
+
+    if (type === 'matrix') {
+      newQuestion.rows = [];
+      newQuestion.columns = [];
+    }
+
     setQuestions([...questions, newQuestion]);
   };
 
@@ -37,6 +43,7 @@ const FormBuilder = () => {
       <button onClick={() => addQuestion('text')}>Add Text Question</button>
       <button onClick={() => addQuestion('multipleChoice')}>Add Multiple Choice Question</button>
       <button onClick={() => addQuestion('ratingScale')}>Add Rating Scale Question</button>
+      <button onClick={() => addQuestion('matrix')}>Add Matrix Question</button>
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />
       ))}
