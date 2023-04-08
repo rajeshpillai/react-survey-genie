@@ -110,6 +110,12 @@ const FormDisplay = ({ questions }) => {
           </select>
         </div>
       );
+    } else if (question.type === 'datePicker') {
+      return (
+        <div>
+          <input type="date" />
+        </div>
+      );
     }
   };
 
