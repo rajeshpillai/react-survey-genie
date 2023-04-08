@@ -76,6 +76,18 @@ const FormDisplay = ({ questions }) => {
           </tbody>
         </table>
       );
+    } else if (question.type === 'slider') {
+      return (
+        <div>
+          <input
+            type="range"
+            min={question.minValue}
+            max={question.maxValue}
+            step={question.stepValue}
+            defaultValue={question.minValue}
+          />
+        </div>
+      );
     }
   };
 

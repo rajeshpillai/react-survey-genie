@@ -22,7 +22,7 @@ const FormBuilder = () => {
       newQuestion.statements = [];
       newQuestion.scale = [];
     }
-    
+
     setQuestions([...questions, newQuestion]);
   };
 
@@ -50,6 +50,7 @@ const FormBuilder = () => {
       <button onClick={() => addQuestion('ratingScale')}>Add Rating Scale Question</button>
       <button onClick={() => addQuestion('matrix')}>Add Matrix Question</button>
       <button onClick={() => addQuestion('likert')}>Add Likert Scale Question</button>
+      <button onClick={() => addQuestion('slider')}>Add Slider Question</button>
 
       {questions.map((question) => (
         <Question key={question.id} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} />

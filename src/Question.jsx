@@ -11,11 +11,14 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
   const [statements, setStatements] = useState(question.statements || []);
   const [scale, setScale] = useState(question.scale || []);
 
+  // Slider  question type
+  const [minValue, setMinValue] = useState(question.minValue || 0);
+  const [maxValue, setMaxValue] = useState(question.maxValue || 100);
+  const [stepValue, setStepValue] = useState(question.stepValue || 1);
 
   const handleUpdate = () => {
-    updateQuestion(question.id, { ...question, question: questionText, statements, scale });
+    updateQuestion(question.id, { ...question, question: questionText, statements, scale, minValue, maxValue, stepValue });
   };
-
 
   const handleDelete = () => {
     deleteQuestion(question.id);
@@ -102,6 +105,14 @@ const Question = ({ question, updateQuestion, deleteQuestion }) => {
             ))}
             <button onClick={() => setScale([...scale, ''])}>Add Scale Option</button>
           </div>
+        </div>
+      )}
+
+      {question.type === 'slider' && (
+        <div>
+          <label>Min Value: <input type="number" value={minValue} onChange={(e) => setMinValue(e.target.value)} /></label>
+          <label>Max Value: <input type="number" value={maxValue} onChange={(e) => setMaxValue(e.target.value)} /></label>
+          <label>Step Value: <input type="number" value={stepValue} onChange={(e) => setStepValue(e.target.value)} /></label>
         </div>
       )}
 
